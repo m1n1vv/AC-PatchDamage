@@ -1,4 +1,4 @@
-# AC-TakeDamage
+# AC-PatchDamage
 > Версия: 0.1
 
 Античит проверяет игроков, по которым был нанесен урон. Дальше будет больше.
@@ -6,7 +6,7 @@
 Установка
 ---------
 ```pawn
-#include <AC-TakeDamage>
+#include <AC-PatchDamage>
 ```
 
 Ключи
