@@ -66,10 +66,10 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				if (ac_td__checking{playerid} == 5)
 				{
 					#if defined AC_TAKE_DAMAGE_DEVELOPER_MODE
-					format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
-					SendClientMessageToAll(-1, str);
+						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
+						SendClientMessageToAll(-1, str);
 					#else
-					Kick(hitid);
+						Kick(hitid);
 					#endif
 				}
 
