@@ -28,7 +28,7 @@ redistribute it freely, subject to the following restrictions:
 #define AC_TAKE_DAMAGE
 
 #define AC_TAKE_DAMAGE_TIMER   			1000
-#define AC_TAKE_DAMAGE_DEVELOPER_MODE
+//#define AC_TAKE_DAMAGE_DEVELOPER_MODE
 
 static
 	afk[MAX_PLAYERS char],
