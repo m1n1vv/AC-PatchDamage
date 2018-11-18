@@ -76,8 +76,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				#if defined AC_TAKE_DAMAGE_DEVELOPER_MODE
 				else
 				{
-						format(str, sizeof str, "ID(%i) cheats {FF0000}OFF", hitid);
-						SendClientMessageToAll(-1, str);
+					format(str, sizeof str, "ID(%i) cheats {FF0000}OFF", hitid);
+					SendClientMessageToAll(-1, str);
 				}
 				#endif
 
@@ -89,9 +89,9 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		}
 	}
 #if defined ac_td__OnPlayerWeaponShot
-    ac_td__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+	ac_td__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 #endif
-    return 1;
+	return 1;
 }
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
@@ -102,7 +102,7 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 	}
 
 #if defined ac_td__OnPlayerTakeDamage
-    ac_td__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
+	ac_td__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
 #endif
 	return 1;
 }
@@ -169,9 +169,9 @@ public CheckAFK()
 }
 
 #if defined _ALS_OnPlayerWeaponShot
-    #undef OnPlayerWeaponShot
+	#undef OnPlayerWeaponShot
 #else
-    #define _ALS_OnPlayerWeaponShot
+	#define _ALS_OnPlayerWeaponShot
 #endif
 #define OnPlayerWeaponShot ac_td__OnPlayerWeaponShot
 #if  defined ac_td__OnPlayerWeaponShot
@@ -179,9 +179,9 @@ forward ac_td__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, 
 #endif
 
 #if defined _ALS_OnPlayerTakeDamage
-    #undef OnPlayerTakeDamage
+	#undef OnPlayerTakeDamage
 #else
-    #define _ALS_OnPlayerTakeDamage
+	#define _ALS_OnPlayerTakeDamage
 #endif
 #define OnPlayerTakeDamage ac_td__OnPlayerTakeDamage
 #if  defined ac_td__OnPlayerTakeDamage
@@ -189,9 +189,9 @@ forward ac_td__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bo
 #endif
 
 #if defined _ALS_OnGameModeInit
-    #undef OnGameModeInit
+	#undef OnGameModeInit
 #else
-    #define _ALS_OnGameModeInit
+	#define _ALS_OnGameModeInit
 #endif
 #define OnGameModeInit ac_td__OnGameModeInit
 #if  defined ac_td__OnGameModeInit
