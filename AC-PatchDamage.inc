@@ -54,59 +54,67 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		if (afk{hitid} == 0)
 		{
-			#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
 			static
-				message,
-				str[30];
-			#endif
+				weaponid;
 
-			if (ac_pd__targetid[playerid] != hitid)
-			{
-				ac_pd__take_check{playerid} =
-				ac_pd__warn{playerid} = 0;
-				ac_pd__targetid[playerid] = hitid;
-			}
+			weaponid = GetPlayerWeapon(playerid);
 
-			ac_pd__take_check{playerid}++;
-			ac_pd__give_check{playerid}++;
-			ac_pd__warn{playerid}++;
-
-			if (ac_pd__warn{playerid} == AC_PATCH_DAMAGE_REGISTR)
+			if ((22 <= weaponid <= 34))
 			{
 				#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-					message = 0;
+				static
+					message,
+					str[30];
 				#endif
 
-				if (ac_pd__take_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
+				if (ac_pd__targetid[playerid] != hitid)
+				{
+					ac_pd__take_check{playerid} =
+					ac_pd__warn{playerid} = 0;
+					ac_pd__targetid[playerid] = hitid;
+				}
+
+				ac_pd__take_check{playerid}++;
+				ac_pd__give_check{playerid}++;
+				ac_pd__warn{playerid}++;
+
+				if (ac_pd__warn{playerid} == AC_PATCH_DAMAGE_REGISTR)
 				{
 					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-						message = 1;
-						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
-						SendClientMessageToAll(-1, str);
-					#else
-						PlayerKick(hitid);
+						message = 0;
 					#endif
-				}
-				if (ac_pd__give_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
-				{
-					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-						message = 1;
-						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
-						SendClientMessageToAll(-1, str);
-					#else
-						PlayerKick(playerid);
-					#endif
-				}
-				#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-					if (message == 0)
+
+					if (ac_pd__take_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
 					{
-						SendClientMessageToAll(-1, !"cheats {FF0000}OFF");
+						#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
+							message = 1;
+							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
+							SendClientMessageToAll(-1, str);
+						#else
+							Kick(hitid);
+						#endif
 					}
-				#endif
+					if (ac_pd__give_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
+					{
+						#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
+							message = 1;
+							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
+							SendClientMessageToAll(-1, str);
+						#else
+							Kick(playerid);
+						#endif
+					}
+					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
+						if (message == 0)
+						{
+							SendClientMessageToAll(-1, !"cheats {FF0000}OFF");
+						}
+					#endif
 
-				ac_pd__take_check{playerid} =
-				ac_pd__give_check{playerid} =
-				ac_pd__warn{playerid} = 0;
+					ac_pd__take_check{playerid} =
+					ac_pd__give_check{playerid} =
+					ac_pd__warn{playerid} = 0;
+				}
 			}
 
 			return 1;
