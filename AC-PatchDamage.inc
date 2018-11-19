@@ -27,9 +27,15 @@ redistribute it freely, subject to the following restrictions:
 #endif
 #define AC_PATCH_DAMAGE
 
-#define AC_PATCH_DAMAGE_TIMER   			1000	//Время таймера
-#define AC_PATCH_DAMAGE_REGISTR				5	//Промежуток на проверку нанесения урона
-//#define AC_PATCH_DAMAGE_DEVELOPER_MODE			//Активируется для тестирования. Отключается функция Kick и включаются подсказки в чат
+#if !defined AC_PATCH_DAMAGE_TIMER
+	#define AC_PATCH_DAMAGE_TIMER   			1000	//Время таймера
+#endif
+
+#if !defined AC_PATCH_DAMAGE_REGISTR
+	#define AC_PATCH_DAMAGE_REGISTR				5	//Промежуток на проверку нанесения урона
+#endif
+
+//#define AC_PATCH_DAMAGE_DEVELOPER_MODE				//Активируется для тестирования. Отключается функция Kick и включаются подсказки в чат
 
 static
 	afk[MAX_PLAYERS char],
