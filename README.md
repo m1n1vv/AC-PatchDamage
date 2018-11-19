@@ -8,7 +8,7 @@
 ```pawn
 #include <AC-PatchDamage>
 ```
-В конце мода создаем **stock** с названием **PlayerKick** с уведомление о причне кика:
+В конце мода создаем **stock** с названием **PlayerKick** с уведомление о причине кика:
 ```pawn
 stock PlayerKick(playerid)
 {
