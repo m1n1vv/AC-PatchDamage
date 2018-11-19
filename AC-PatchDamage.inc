@@ -29,7 +29,7 @@ redistribute it freely, subject to the following restrictions:
 
 #define AC_PATCH_DAMAGE_TIMER   			1000	//Время таймера
 #define AC_PATCH_DAMAGE_REGISTR				5	//Промежуток на проверку нанесения урона
-#define AC_PATCH_DAMAGE_DEVELOPER_MODE				//Активируется для тестирования. Отключается функция Kick и включаются подсказки в чат
+//#define AC_PATCH_DAMAGE_DEVELOPER_MODE			//Активируется для тестирования. Отключается функция Kick и включаются подсказки в чат
 
 static
 	afk[MAX_PLAYERS char],
@@ -78,7 +78,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
 						SendClientMessageToAll(-1, str);
 					#else
-						Kick(hitid);
+						PlayerKick(hitid);
 					#endif
 				}
 				if (ac_pd__give_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
@@ -88,7 +88,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
 						SendClientMessageToAll(-1, str);
 					#else
-						Kick(playerid);
+						PlayerKick(playerid);
 					#endif
 				}
 				#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
