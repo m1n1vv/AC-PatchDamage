@@ -8,9 +8,9 @@
 ```pawn
 #include <AC-PatchDamage>
 ```
-В конце мода создаем **stock** с названием **PlayerKick** с уведомление о причине кика:
+В конце мода создаем **stock** с названием **KickMessage** с уведомление о причине кика:
 ```pawn
-stock PlayerKick(playerid)
+stock KickMessage(playerid)
 {
 	static const
 		str[] = "Игрок [%i]%s был кикнут за использование читов";
