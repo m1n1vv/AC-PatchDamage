@@ -54,11 +54,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		if (afk{hitid} == 0)
 		{
-			static
-				weaponid;
-
-			weaponid = GetPlayerWeapon(playerid);
-
 			if ((22 <= weaponid <= 34))
 			{
 				#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
