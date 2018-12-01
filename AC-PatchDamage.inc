@@ -32,7 +32,7 @@ redistribute it freely, subject to the following restrictions:
 #endif
 
 #if !defined AC_PATCH_DAMAGE_REGISTR
-	#define AC_PATCH_DAMAGE_REGISTR				5		//Промежуток на проверку нанесения урона
+	#define AC_PATCH_DAMAGE_REGISTR				5	//Промежуток на проверку нанесения урона
 #endif
 
 //#define AC_PATCH_DAMAGE_USE_PLAYERID					//TakeDamage регистрируется на убийцу
