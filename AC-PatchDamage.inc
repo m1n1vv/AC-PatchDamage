@@ -59,26 +59,26 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			if ((22 <= weaponid <= 34))
 			{
 				#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-				static
-					message,
-					str[30];
+					static
+						message,
+						str[30];
 				#endif
 
 				if (ac_pd__targetid[playerid] != hitid)
 				{
 					#if defined AC_PATCH_DAMAGE_USE_PLAYERID
-					ac_pd__take_check{playerid} =
+						ac_pd__take_check{playerid} =
 					#else
-					ac_pd__take_check{hitid} =
+						ac_pd__take_check{hitid} =
 					#endif
 					ac_pd__warn{playerid} = 0;
 					ac_pd__targetid[playerid] = hitid;
 				}
 
 				#if defined AC_PATCH_DAMAGE_USE_PLAYERID
-				ac_pd__take_check{playerid}++;
+					ac_pd__take_check{playerid}++;
 				#else
-				ac_pd__take_check{hitid}++;
+					ac_pd__take_check{hitid}++;
 				#endif
 				ac_pd__give_check{playerid}++;
 				ac_pd__warn{playerid}++;
@@ -88,40 +88,42 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
 						message = 0;
 					#endif
+
 					#if defined AC_PATCH_DAMAGE_USE_PLAYERID
-					if (ac_pd__take_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
+						if (ac_pd__take_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
 					#else
-					if (ac_pd__take_check{hitid} == AC_PATCH_DAMAGE_REGISTR)
+						if (ac_pd__take_check{hitid} == AC_PATCH_DAMAGE_REGISTR)
 					#endif
+
 					{
 						#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-						message = 1;
-						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
-						SendClientMessageToAll(-1, str);
+							message = 1;
+							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
+							SendClientMessageToAll(-1, str);
 						#else
-						KickMessage(hitid);
+							Kick(hitid);
 						#endif
 					}
 					if (ac_pd__give_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
 					{
 						#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-						message = 1;
-						format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
-						SendClientMessageToAll(-1, str);
+							message = 1;
+							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
+							SendClientMessageToAll(-1, str);
 						#else
-						KickMessage(playerid);
+							Kick(playerid);
 						#endif
 					}
+
 					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
-					if (message == 0)
-					{
-						SendClientMessageToAll(-1, !"cheats {FF0000}OFF");
-					}
+						if (message == 0)
+							SendClientMessageToAll(-1, !"cheats {FF0000}OFF");
 					#endif
+
 					#if defined AC_PATCH_DAMAGE_USE_PLAYERID
-					ac_pd__take_check{playerid} =
+						ac_pd__take_check{playerid} =
 					#else
-					ac_pd__take_check{hitid} =
+						ac_pd__take_check{hitid} =
 					#endif
 					ac_pd__give_check{playerid} =
 					ac_pd__warn{playerid} = 0;
@@ -131,26 +133,24 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			return 1;
 		}
 	}
-#if defined ac_pd__OnPlayerWeaponShot
-	ac_pd__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
-#endif
+	#if defined ac_pd__OnPlayerWeaponShot
+		ac_pd__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+	#endif
 	return 1;
 }
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
 	#if defined AC_PATCH_DAMAGE_USE_PLAYERID
-	if (issuerid != INVALID_PLAYER_ID)
-	{
-		ac_pd__take_check{issuerid} += 20;
-	}
+		if (issuerid != INVALID_PLAYER_ID)
+			ac_pd__take_check{issuerid} += 20;
 	#else
-	ac_pd__take_check{playerid} += 20;
+		ac_pd__take_check{playerid} += 20;
 	#endif
 
-#if defined ac_pd__OnPlayerTakeDamage
-	ac_pd__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
-#endif
+	#if defined ac_pd__OnPlayerTakeDamage
+		ac_pd__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
+	#endif
 	return 1;
 }
 
@@ -158,9 +158,9 @@ public OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart
 {
     ac_pd__give_check{playerid} += 20;
 
-#if defined ac_pd__OnPlayerGiveDamage
-	ac_pd__OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart);
-#endif
+	#if defined ac_pd__OnPlayerGiveDamage
+		ac_pd__OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart);
+	#endif
     return 1;
 }
 
@@ -181,9 +181,9 @@ public OnPlayerUpdate(playerid)
 		afk__tick[playerid] = GetTickCount();
 		afk__info{playerid} = !afk__info{playerid};
 	}
-#if defined ac_pd__OnPlayerUpdate
-	ac_pd__OnPlayerUpdate(playerid);
-#endif
+	#if defined ac_pd__OnPlayerUpdate
+		ac_pd__OnPlayerUpdate(playerid);
+	#endif
 	return 1;
 }
 
@@ -200,9 +200,9 @@ public OnPlayerDisconnect(playerid, reason)
 	ac_pd__give_check{playerid} =
 	ac_pd__warn{playerid} = 0;
 
-#if defined ac_pd__OnPlayerDisconnect
-	ac_pd__OnPlayerDisconnect(playerid, reason);
-#endif
+	#if defined ac_pd__OnPlayerDisconnect
+		ac_pd__OnPlayerDisconnect(playerid, reason);
+	#endif
 	return 1;
 }
 
@@ -214,15 +214,10 @@ public CheckAFK()
 		afk__check[i][1] = afk__check[i][0];
 		afk__check[i][0] = afk__info{i};
 		if (afk__check[i][1] == afk__check[i][0])
-		{
 			afk{i} = 1;
-		}
 		else
-		{
 			afk{i} = 0;
-		}
 	}
-    
 	return 1;
 }
 
@@ -233,7 +228,7 @@ public CheckAFK()
 #endif
 #define OnPlayerWeaponShot ac_pd__OnPlayerWeaponShot
 #if  defined ac_pd__OnPlayerWeaponShot
-forward ac_pd__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+	forward ac_pd__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 #endif
 
 #if defined _ALS_OnPlayerTakeDamage
@@ -243,7 +238,7 @@ forward ac_pd__OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, 
 #endif
 #define OnPlayerTakeDamage ac_pd__OnPlayerTakeDamage
 #if  defined ac_pd__OnPlayerTakeDamage
-forward ac_pd__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
+	forward ac_pd__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
 #endif
 
 #if defined _ALS_OnPlayerGiveDamage
@@ -253,7 +248,7 @@ forward ac_pd__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bo
 #endif
 #define OnPlayerGiveDamage ac_pd__OnPlayerGiveDamage
 #if  defined ac_pd__OnPlayerGiveDamage
-forward ac_pd__OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart);
+	forward ac_pd__OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart);
 #endif
 
 #if defined _ALS_OnGameModeInit
@@ -263,7 +258,7 @@ forward ac_pd__OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, 
 #endif
 #define OnGameModeInit ac_pd__OnGameModeInit
 #if  defined ac_pd__OnGameModeInit
-forward ac_pd__OnGameModeInit();
+	forward ac_pd__OnGameModeInit();
 #endif
 
 #if defined _ALS_OnPlayerUpdate
@@ -273,7 +268,7 @@ forward ac_pd__OnGameModeInit();
 #endif
 #define OnPlayerUpdate ac_pd__OnPlayerUpdate
 #if  defined ac_pd__OnPlayerUpdate
-forward ac_pd__OnPlayerUpdate(playerid);
+	forward ac_pd__OnPlayerUpdate(playerid);
 #endif
 
 #if defined _ALS_OnPlayerDisconnect
@@ -283,5 +278,5 @@ forward ac_pd__OnPlayerUpdate(playerid);
 #endif
 #define OnPlayerDisconnect ac_pd__OnPlayerDisconnect
 #if  defined ac_pd__OnPlayerDisconnect
-forward ac_pd__OnPlayerDisconnect(playerid, reason);
+	forward ac_pd__OnPlayerDisconnect(playerid, reason);
 #endif
