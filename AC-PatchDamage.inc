@@ -99,7 +99,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
 							SendClientMessageToAll(-1, str);
 						#else
-							Kick(hitid);
+							KickMessage(hitid);
 						#endif
 					}
 					if (ac_pd__give_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
@@ -109,7 +109,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
 							SendClientMessageToAll(-1, str);
 						#else
-							Kick(playerid);
+							KickMessage(playerid);
 						#endif
 					}
 					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
