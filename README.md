@@ -38,3 +38,4 @@ stock KickMessage(playerid)
 |AC_PATCH_DAMAGE_TIMER|Время таймера|
 |AC_PATCH_DAMAGE_REGISTR|Промежуток на проверку нанесения урона|
 |AC_PATCH_DAMAGE_DEVELOPER_MODE|Активируется для тестирования. Отключается функция **PlayerKick** и включаются подсказки в чат. По необходимости объявите перед иклудом|
+|AC_PATCH_DAMAGE_USE_PLAYERID|TakeDamage регистрируется на убийцу|
