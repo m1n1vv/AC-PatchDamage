@@ -32,8 +32,10 @@ redistribute it freely, subject to the following restrictions:
 #endif
 
 #if !defined AC_PATCH_DAMAGE_REGISTR
-	#define AC_PATCH_DAMAGE_REGISTR				5	//Промежуток на проверку нанесения урона
+	#define AC_PATCH_DAMAGE_REGISTR				5		//Промежуток на проверку нанесения урона
 #endif
+
+//#define AC_PATCH_DAMAGE_USE_PLAYERID					//TakeDamage регистрируется на убийцу
 
 //#define AC_PATCH_DAMAGE_DEVELOPER_MODE				//Активируется для тестирования. Отключается функция Kick и включаются подсказки в чат
 
@@ -64,12 +66,20 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 				if (ac_pd__targetid[playerid] != hitid)
 				{
+					#if defined AC_PATCH_DAMAGE_USE_PLAYERID
 					ac_pd__take_check{playerid} =
+					#else
+					ac_pd__take_check{hitid} =
+					#endif
 					ac_pd__warn{playerid} = 0;
 					ac_pd__targetid[playerid] = hitid;
 				}
 
+				#if defined AC_PATCH_DAMAGE_USE_PLAYERID
 				ac_pd__take_check{playerid}++;
+				#else
+				ac_pd__take_check{hitid}++;
+				#endif
 				ac_pd__give_check{playerid}++;
 				ac_pd__warn{playerid}++;
 
@@ -78,15 +88,18 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
 						message = 0;
 					#endif
-
+					#if defined AC_PATCH_DAMAGE_USE_PLAYERID
 					if (ac_pd__take_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
+					#else
+					if (ac_pd__take_check{hitid} == AC_PATCH_DAMAGE_REGISTR)
+					#endif
 					{
 						#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
 							message = 1;
 							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", hitid);
 							SendClientMessageToAll(-1, str);
 						#else
-							KickMessage(hitid);
+							Kick(hitid);
 						#endif
 					}
 					if (ac_pd__give_check{playerid} == AC_PATCH_DAMAGE_REGISTR)
@@ -96,7 +109,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 							format(str, sizeof str, "ID(%i) cheats {00FF00}ON", playerid);
 							SendClientMessageToAll(-1, str);
 						#else
-							KickMessage(playerid);
+							Kick(playerid);
 						#endif
 					}
 					#if defined AC_PATCH_DAMAGE_DEVELOPER_MODE
@@ -105,8 +118,11 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 							SendClientMessageToAll(-1, !"cheats {FF0000}OFF");
 						}
 					#endif
-
+					#if defined AC_PATCH_DAMAGE_USE_PLAYERID
 					ac_pd__take_check{playerid} =
+					#else
+					ac_pd__take_check{hitid} =
+					#endif
 					ac_pd__give_check{playerid} =
 					ac_pd__warn{playerid} = 0;
 				}
@@ -123,10 +139,14 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
+	#if defined AC_PATCH_DAMAGE_USE_PLAYERID
 	if (issuerid != INVALID_PLAYER_ID)
 	{
 		ac_pd__take_check{issuerid} += 20;
 	}
+	#else
+	ac_pd__take_check{playerid} += 20;
+	#endif
 
 #if defined ac_pd__OnPlayerTakeDamage
 	ac_pd__OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
@@ -179,7 +199,7 @@ public OnPlayerDisconnect(playerid, reason)
 	ac_pd__take_check{playerid} =
 	ac_pd__give_check{playerid} =
 	ac_pd__warn{playerid} = 0;
-    
+
 #if defined ac_pd__OnPlayerDisconnect
 	ac_pd__OnPlayerDisconnect(playerid, reason);
 #endif
